@@ -1,0 +1,1904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coffee Borcelle</title>
+  <!-- Add Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f5f5f5;
+    }
+
+    /* Header Section */
+    header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      background-color: #3b2a1e;
+      color: white;
+      position: relative;
+      min-height: 460px;
+    }
+
+    .logo {
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      width: 120px;
+      height: 120px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logo img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 2px solid #d4a373;
+      padding: 5px;
+      background-color: white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .logo svg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    .curved-text-top, .curved-text-bottom {
+      fill: #d4a373;
+      font-size: 18px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    nav {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      padding: 15px 30px;
+      background-color: transparent;
+    }
+
+    nav ul li {
+      display: inline;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      font-size: 16px;
+      padding: 10px 15px;
+      display: inline-block;
+      border-radius: 0;
+      color: white;
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul li a.active {
+      background-color: white;
+      border: 2px solid white;
+      color: #000;
+    }
+
+    nav ul li a {
+      background-color: #F07167;
+      border: 2px solid #F07167;
+    }
+
+    nav ul li a:hover {
+      opacity: 0.9;
+    }
+
+    /* Hamburger Menu Icon */
+    .hamburger {
+      display: none;
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+      position: absolute;
+      right: 20px;
+      top: 20px;
+    }
+
+    .header-images {
+      position: absolute;
+      right: 30px;
+      top: 20px;
+      height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .header-images img {
+      width: 200px;
+      height: 200px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .header-content-container {
+      width: 100%;
+      max-width: 600px;
+      margin-top: 20px;
+      text-align: center;
+      margin-right: -50px;
+    }
+
+    .header-content h1 {
+      font-size: 48px;
+      font-family: 'Georgia', serif;
+      margin-bottom: 10px;
+    }
+
+    .header-content p {
+      font-size: 18px;
+      font-style: italic;
+    }
+
+    /* Pop-Up (Modal) for Features */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: #e6d5b8;
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 500px;
+      position: relative;
+      text-align: center;
+    }
+
+    .modal-content h2 {
+      font-size: 28px;
+      color: #3b2a1e;
+      margin-bottom: 20px;
+    }
+
+    .modal-content ul {
+      list-style: none;
+      margin-bottom: 20px;
+    }
+
+    .modal-content ul li {
+      margin: 10px 0;
+    }
+
+    .modal-content ul li a {
+      text-decoration: none;
+      font-size: 16px;
+      color: #5c4033;
+      padding: 10px;
+      display: block;
+      transition: background-color 0.3s ease;
+    }
+
+    .modal-content ul li a:hover {
+      background-color: #d4a373;
+      border-radius: 5px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      color: #3b2a1e;
+      cursor: pointer;
+    }
+
+    /* Coffee Details Section */
+    .coffee-details {
+      display: none;
+      padding: 40px 20px;
+      background-color: #e6d5b8;
+      text-align: center;
+    }
+
+    .coffee-details.active {
+      display: block;
+    }
+
+    .coffee-details h2 {
+      font-size: 28px;
+      color: #3b2a1e;
+      margin-bottom: 20px;
+    }
+
+    .coffee-details img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+
+    .coffee-details .description {
+      font-size: 16px;
+      color: #5c4033;
+      max-width: 800px;
+      margin: 0 auto 20px;
+    }
+
+    .coffee-preparation {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .coffee-preparation .image {
+      width: 40%;
+    }
+
+    .coffee-preparation .image img {
+      width: 100%;
+      max-height: 300px; /* Limit the height of preparation images */
+      object-fit: cover;
+      display: block;
+    }
+
+    .coffee-preparation .text {
+      width: 60%;
+      text-align: left;
+    }
+
+    .coffee-preparation .text h3 {
+      font-size: 24px;
+      color: #3b2a1e;
+      margin-bottom: 10px;
+    }
+
+    .coffee-preparation .text ol {
+      list-style-position: inside;
+      font-size: 16px;
+      color: #5c4033;
+      line-height: 1.5;
+    }
+
+    /* Home Section */
+    .home {
+      display: none;
+      padding: 40px 20px;
+      background-color: #e6d5b8;
+      text-align: center;
+    }
+
+    .home.active {
+      display: block;
+    }
+
+    .home h2 {
+      font-size: 28px;
+      color: #3b2a1e;
+      margin-bottom: 20px;
+    }
+
+    .home p {
+      font-size: 16px;
+      color: #5c4033;
+      max-width: 800px;
+      margin: 0 auto 20px;
+    }
+
+    /* About Us Section */
+    .about-us {
+      display: none;
+      padding: 40px 20px;
+      background-color: #e6d5b8;
+      text-align: center;
+    }
+
+    .about-us.active {
+      display: block;
+    }
+
+    .about-us-image {
+      width: 100%;
+    }
+
+    .about-us-image img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .about-us-text {
+      padding: 20px 0;
+    }
+
+    .about-us-text h2 {
+      font-size: 28px;
+      color: #3b2a1e;
+      margin-bottom: 15px;
+    }
+
+    .about-us-text p {
+      font-size: 16px;
+      color: #5c4033;
+      max-width: 800px;
+      margin: 0 auto 20px;
+    }
+
+    /* Mission, Vision, Values Section */
+    .mission-vision-values {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5%;
+      padding: 40px 20px;
+      background-color: #e6d5b8;
+    }
+
+    .mission-vision-values-text {
+      width: 50%;
+      text-align: left;
+    }
+
+    .mission-vision-values-text h3 {
+      font-size: 20px;
+      color: #3b2a1e;
+      text-transform: uppercase;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .mission-vision-values-text p {
+      font-size: 16px;
+      color: #5c4033;
+      margin-bottom: 20px;
+    }
+
+    .mission-vision-values-image {
+      width: 50%;
+      max-width: 500px;
+    }
+
+    .mission-vision-values-image img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    /* Purchase Section */
+    .purchase {
+      display: none;
+      padding: 40px 20px;
+      background-color: #e6d5b8;
+      text-align: center;
+    }
+
+    .purchase.active {
+      display: block;
+    }
+
+    .purchase h2 {
+      font-size: 28px;
+      color: #3b2a1e;
+      margin-bottom: 20px;
+    }
+
+    .coffee-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .coffee-item {
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .coffee-item img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .coffee-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .coffee-item .coffee-name {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(59, 42, 30, 0.7);
+      color: white;
+      padding: 10px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    /* Order Form Section */
+    .order-form-section {
+      display: none;
+      padding: 40px 20px;
+      background-color: #e6d5b8;
+      text-align: center;
+    }
+
+    .order-form-section.active {
+      display: block;
+    }
+
+    .order-form-section h2 {
+      font-size: 28px;
+      color: #3b2a1e;
+      margin-bottom: 20px;
+    }
+
+    .order-form {
+      max-width: 500px;
+      margin: 0 auto;
+      background-color: #f5f5f5;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .order-form label {
+      display: block;
+      text-align: left;
+      font-size: 16px;
+      color: #3b2a1e;
+      margin-bottom: 5px;
+    }
+
+    .order-form input,
+    .order-form select,
+    .order-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #d4a373;
+      border-radius: 5px;
+      font-size: 16px;
+      color: #5c4033;
+    }
+
+    .order-form input[readonly] {
+      background-color: #e6d5b8;
+      cursor: not-allowed;
+    }
+
+    .order-form textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .order-form button {
+      padding: 10px 20px;
+      background-color: #3b2a1e;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .order-form button:hover {
+      background-color: #5c4033;
+    }
+
+    /* Contact Us Section */
+    .contact-us {
+      display: none;
+      padding: 40px 20px;
+      background-color: #e6d5b8;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .contact-us.active {
+      display: flex;
+    }
+
+    .contact-us-image {
+      width: 50%;
+      max-width: 600px;
+    }
+
+    .contact-us-image img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .contact-us-form {
+      width: 50%;
+      padding: 20px;
+      background-color: #f5f5f5;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-us-form h2 {
+      font-size: 28px;
+      color: #3b2a1e;
+      margin-bottom: 20px;
+    }
+
+    .contact-us-form label {
+      display: block;
+      text-align: left;
+      font-size: 16px;
+      color: #3b2a1e;
+      margin-bottom: 5px;
+    }
+
+    .contact-us-form input,
+    .contact-us-form select,
+    .contact-us-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #d4a373;
+      border-radius: 5px;
+      font-size: 16px;
+      color: #5c4033;
+    }
+
+    .contact-us-form textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .contact-us-form button {
+      padding: 10px 20px;
+      background-color: #3b2a1e;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .contact-us-form button:hover {
+      background-color: #5c4033;
+    }
+
+    .contact-us-form .success-message {
+      display: none;
+      color: #2e7d32;
+      margin-top: 10px;
+    }
+
+    .contact-us-form .honeypot {
+      display: none;
+    }
+
+    .privacy-notice {
+      font-size: 12px;
+      color: #5c4033;
+      margin-top: 10px;
+    }
+
+    .privacy-notice a {
+      color: #d4a373;
+      text-decoration: none;
+    }
+
+    .privacy-notice a:hover {
+      text-decoration: underline;
+    }
+
+    /* Coffee Types Section */
+    .coffee-types {
+      display: none;
+      padding: 40px 20px;
+      background-color: #e6d5b8;
+      text-align: center;
+    }
+
+    .coffee-types.active {
+      display: block;
+    }
+
+    .coffee-types h2 {
+      font-size: 28px;
+      color: #3b2a1e;
+      margin-bottom: 20px;
+    }
+
+    .coffee-types-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .coffee-type {
+      text-align: center;
+    }
+
+    .coffee-type img {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      border: 2px solid #3b2a1e;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .coffee-type p {
+      font-size: 16px;
+      color: #5c4033;
+      margin-top: 10px;
+    }
+
+    /* Discover Section */
+    .discover {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      background-color: #e6d5b8;
+      gap: 5%;
+    }
+
+    .discover-image {
+      width: 40%;
+      max-width: 300px;
+    }
+
+    .discover-image img {
+      width: 100%;
+      aspect-ratio: 1/1;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .discover-text {
+      width: 55%;
+    }
+
+    .discover-text h2 {
+      font-size: 28px;
+      margin-bottom: 15px;
+      color: #3b2a1e;
+    }
+
+    .discover-text p {
+      font-size: 16px;
+      margin-bottom: 20px;
+      color: #5c4033;
+    }
+
+    .discover-text button {
+      padding: 10px 20px;
+      background-color: #3b2a1e;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .discover-text button:hover {
+      background-color: #5c4033;
+    }
+
+    /* Reviews Section */
+    .reviews {
+      display: none;
+      padding: 40px 20px;
+      background-color: #5c4033;
+      color: white;
+      text-align: center;
+    }
+
+    .reviews.active {
+      display: block;
+    }
+
+    .reviews-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .reviews h2 {
+      font-size: 28px;
+    }
+
+    .reviews-header img {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+    }
+
+    .reviews p {
+      font-size: 16px;
+      margin-bottom: 30px;
+      font-style: italic;
+    }
+
+    .review-cards {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .review-card {
+      background-color: #e6d5b8;
+      color: #3b2a1e;
+      padding: 20px;
+      width: 200px;
+      border-radius: 10px;
+    }
+
+    .review-card p {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .review-card span {
+      font-style: italic;
+      font-size: 12px;
+    }
+
+    /* Footer Section */
+    footer {
+      padding: 40px 20px;
+      background-color: #3b2a1e;
+      color: white;
+      display: flex;
+      justify-content: center;
+      gap: 5%;
+      flex-wrap: wrap;
+    }
+
+    footer.active {
+      display: flex;
+    }
+
+    .footer-column {
+      margin-bottom: 20px;
+      flex: 1 1 auto; /* Ensure columns take available space */
+      min-width: 200px;
+    }
+
+    .footer-column.contact-us {
+      width: 30%;
+      min-width: 250px;
+    }
+
+    .footer-column.contact-us p {
+      font-size: 16px;
+      margin-bottom: 15px;
+      color: #d4a373;
+    }
+
+    .footer-column.sitemap {
+      width: 20%;
+      min-width: 150px;
+    }
+
+    .footer-column.sitemap p {
+      font-size: 16px;
+      margin-bottom: 15px;
+      color: #d4a373;
+    }
+
+    .footer-column.contact-info {
+      width: 30%;
+      min-width: 200px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer-column .contact-info-logo {
+      width: 100px;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto 15px;
+      position: relative;
+    }
+
+    .footer-column .contact-info-logo img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid #d4a373;
+      padding: 5px;
+      background-color: white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+    }
+
+    .footer-column .contact-info-logo svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .footer-column .contact-info-details {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: center;
+    }
+
+    .footer-column .contact-info-details p {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .footer-column .contact-info-details i {
+      color: #d4a373;
+      font-size: 16px;
+    }
+
+    .footer-column h3 {
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+
+    .footer-column form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-column input,
+    .footer-column textarea {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .footer-column button {
+      padding: 10px;
+      background-color: #e6d5b8;
+      color: #3b2a1e;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .footer-column button:hover {
+      background-color: #d4a373;
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-column ul li a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .footer-column ul li a:hover {
+      text-decoration: underline;
+    }
+
+    .copyright {
+      text-align: center;
+      padding: 20px;
+      background-color: #e6d5b8;
+      color: #3b2a1e;
+      display: block;
+    }
+
+    /* Media Queries for Responsive Design */
+    @media (max-width: 768px) {
+      header {
+        gap: 20px;
+        min-height: auto;
+        padding-top: 150px; /* Add padding to accommodate logo and hamburger menu */
+      }
+
+      .logo {
+        position: absolute;
+        top: 20px;
+        left: 20px; /* Position logo on the left */
+        width: 100px;
+        height: 100px;
+      }
+
+      .logo img {
+        width: 60px;
+        height: 60px;
+      }
+
+      /* Hamburger Menu Styling */
+      .hamburger {
+        display: block;
+        z-index: 1001; /* Ensure hamburger is above nav */
+      }
+
+      nav {
+        display: none;
+        width: 50%; /* Cover only half the page */
+        background-color: #3b2a1e;
+        position: fixed;
+        top: 0;
+        right: -50%; /* Start off-screen on the right */
+        height: 100vh;
+        z-index: 1000;
+        transition: right 0.3s ease; /* Smooth slide-in transition */
+      }
+
+      nav.active {
+        display: block;
+        right: 0; /* Slide in from the right */
+      }
+
+      /* Semi-transparent overlay for the rest of the page when nav is active */
+      nav.active ~ .overlay {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0; /* Cover the left half */
+        width: 50%;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 10px;
+        padding: 60px 20px;
+        height: 100%;
+        justify-content: flex-start;
+      }
+
+      nav ul li {
+        display: block;
+        text-align: center;
+      }
+
+      nav ul li a {
+        display: block;
+        padding: 15px;
+        font-size: 18px;
+        border-radius: 5px;
+      }
+
+      .header-images {
+        position: static;
+        height: auto;
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .header-content-container {
+        margin-right: 0;
+        text-align: center;
+        margin-top: 20px; /* Ensure space below logo */
+      }
+
+      .mission-vision-values {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+      }
+
+      .mission-vision-values-text,
+      .mission-vision-values-image {
+        width: 100%;
+      }
+
+      .mission-vision-values-image {
+        max-width: 300px;
+        margin: 0 auto;
+      }
+
+      .mission-vision-values-text {
+        text-align: center;
+      }
+
+      .coffee-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .coffee-types-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .discover {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+      }
+
+      .discover-image,
+      .discover-text {
+        width: 100%;
+      }
+
+      .discover-image {
+        max-width: 200px;
+      }
+
+      .discover-image img {
+        width: 100%;
+        height: auto;
+      }
+
+      .review-cards {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .coffee-preparation {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .coffee-preparation .image,
+      .coffee-preparation .text {
+        width: 100%;
+      }
+
+      .contact-us {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .contact-us-image,
+      .contact-us-form {
+        width: 100%;
+      }
+
+      .contact-us-image {
+        max-width: 300px;
+        margin: 0 auto 20px;
+      }
+
+      .footer-column.contact-us,
+      .footer-column.sitemap,
+      .footer-column.contact-info {
+        width: 100%;
+      }
+
+      .footer-column .contact-info-logo {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 15px;
+      }
+
+      .footer-column .contact-info-logo img {
+        width: 48px;
+        height: 48px;
+      }
+
+      .footer-column .contact-info-logo svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header-content h1 {
+        font-size: 36px;
+      }
+
+      .header-content p {
+        font-size: 16px;
+      }
+
+      .coffee-grid {
+        grid-template-columns: 1fr;
+      }
+
+      nav ul li a {
+        font-size: 16px;
+        padding: 12px;
+      }
+
+      .logo {
+        width: 80px;
+        height: 80px;
+      }
+
+      .logo img {
+        width: 50px;
+        height: 50px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Section -->
+  <header>
+    <div class="logo">
+      <svg viewBox="0 0 120 120">
+        <path id="topCurve" d="M 10,60 A 50,50 0 0,1 110,60" fill="none" />
+        <path id="bottomCurve" d="M 10,60 A 50,50 0 0,0 110,60" fill="none" />
+        <text class="curved-text-top">
+          <textPath href="#topCurve" startOffset="50%" text-anchor="middle">
+            COFFEE
+          </textPath>
+        </text>
+        <text class="curved-text-bottom">
+          <textPath href="#bottomCurve" startOffset="50%" text-anchor="middle">
+            BORCELLE
+          </textPath>
+        </text>
+      </svg>
+      <img src="https://via.placeholder.com/80" alt="Coffee Borcelle Logo">
+    </div>
+
+    <div class="hamburger">
+      <i class="fas fa-bars"></i>
+    </div>
+
+    <nav>
+      <ul>
+        <li><a href="#" onclick="navigate('Home')">Home</a></li>
+        <li><a href="#" onclick="navigate('About Us')">About Us</a></li>
+        <li><a href="#" onclick="navigate('Features')">Features</a></li>
+        <li><a href="#" onclick="navigate('Purchase')">Purchase</a></li>
+        <li><a href="#" onclick="navigate('Contact Us')">Contact Us</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-content-container">
+      <div class="header-content">
+        <h1>Coffee Makes Mood</h1>
+        <p>"Indulge in Every Sip: Experience the Richness of Coffee"</p>
+      </div>
+    </div>
+
+    <div class="header-images">
+      <img src="57e114f83e455f1c6d565fa6c6839963.jpg" alt="Coffee Cup">
+      <img src="a58d52e58145b1e6f1be20b1447c7c24.jpg" alt="Coffee Beans">
+    </div>
+  </header>
+
+  <!-- Coffee Details Section (Dynamic) -->
+  <section class="coffee-details">
+    <h2 id="coffee-name">Espresso Coffee</h2>
+    <img id="coffee-image" src="images/Espresso_Coffee.jpg" alt="Espresso Coffee">
+    <p class="description" id="coffee-description">
+      Espresso Coffee is a concentrated form of coffee served in small, strong shots and is the base for many coffee drinks. It's made by forcing hot water under high pressure through finely-ground coffee beans, resulting in a rich, bold flavor with a signature crema on top.
+    </p>
+    <div class="coffee-preparation">
+      <div class="image">
+        <img id="coffee-prep-image" src="images/Espresso_Coffee.jpg" alt="Espresso Coffee Preparation">
+      </div>
+      <div class="text">
+        <h3 id="prep-title">How to Prepare Espresso Coffee</h3>
+        <ol id="prep-steps">
+          <li>Grind 18-20 grams of fresh coffee beans to a fine consistency.</li>
+          <li>Tamp the ground coffee evenly into the portafilter with about 30 pounds of pressure.</li>
+          <li>Attach the portafilter to the espresso machine and start the extraction.</li>
+          <li>Run hot water (about 195-205°F) through the coffee for 25-30 seconds to yield a 2-ounce shot.</li>
+          <li>Serve immediately, topped with the natural crema, and enjoy!</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- Home Section -->
+  <section class="home">
+    <h2>Welcome to Coffee Borcelle</h2>
+    <p>This is the home section where you can explore our premium coffee experience. Enjoy the richness of every sip with our carefully curated blends!</p>
+    <!-- Discover Section (only on Home) -->
+    <section class="discover">
+      <div class="discover-image">
+        <img src="57e114f83e455f1c6d565fa6c6839963.jpg" alt="Coffee Cup">
+      </div>
+      <div class="discover-text">
+        <h2>Discover Coffee Borcelle Flavoring Your Experience</h2>
+        <p>
+          At Coffee Borcelle, we’re on a mission to refine your coffee experience. Our carefully curated premium beans, sourced from the world’s most renowned coffee regions, deliver an exceptional taste and quality. Savor the art of coffee, one cup at a time.
+        </p>
+        <button>Read More</button>
+      </div>
+    </section>
+  </section>
+
+  <!-- About Us Section -->
+  <section class="about-us">
+    <div class="about-us-image">
+      <img src="images/community group.jpg" alt="Group of People Drinking Coffee">
+    </div>
+    <div class="about-us-text">
+      <h2>Our Community of Coffee Lovers</h2>
+      <p>
+        At Coffee Borcelle, we believe coffee brings people together. Whether it's friends catching up over a warm cup or colleagues sharing ideas during a coffee break, our blends are crafted to create moments of connection. Join our community and experience the joy of coffee with every sip.
+      </p>
+    </div>
+
+    <!-- Mission, Vision, Values Section -->
+    <div class="mission-vision-values">
+      <div class="mission-vision-values-text">
+        <h3>Mission</h3>
+        <p>
+          Our mission is to delight you with the very best coffee nature can offer, enhanced by technology and enjoyed through the beauty of art.
+        </p>
+        <h3>Vision</h3>
+        <p>
+          We strive to be the world reference for coffee culture and excellence. An innovative company, leader of the high-end segment, offering unique experiences.
+        </p>
+        <h3>Values</h3>
+        <p>
+          Ethics, intended as long-term value creation, through sustainability, transparency, and people development. Excellence, intended as the love for beauty, goodness, and the well-made.
+        </p>
+      </div>
+      <div class="mission-vision-values-image">
+        <img src="images/drink coffee.jpg" alt="Coffee Cup">
+      </div>
+    </div>
+  </section>
+
+  <!-- Purchase Section -->
+  <section class="purchase">
+    <h2>Order Your Favorite Coffee</h2>
+    <div class="coffee-grid">
+      <div class="coffee-item" onclick="showOrderForm('Espresso Coffee')">
+        <img src="images/espresso coffee.jpg" alt="Espresso Coffee">
+        <div class="coffee-name">Espresso Coffee</div>
+      </div>
+      <div class="coffee-item" onclick="showOrderForm('Cappuccino Coffee')">
+        <img src="images/cappuccino coffee.jpg" alt="Cappuccino Coffee">
+        <div class="coffee-name">Cappuccino Coffee</div>
+      </div>
+      <div class="coffee-item" onclick="showOrderForm('Turkish Coffee')">
+        <img src="images/turkish coffee.jpg" alt="Turkish Coffee">
+        <div class="coffee-name">Turkish Coffee</div>
+      </div>
+      <div class="coffee-item" onclick="showOrderForm('Moka Coffee')">
+        <img src="images/moka coffee.jpg" alt="Moka Coffee">
+        <div class="coffee-name">Moka Coffee</div>
+      </div>
+      <div class="coffee-item" onclick="showOrderForm('Brewed Coffee')">
+        <img src="images/Brewed coffe .jpg" alt="Brewed Coffee">
+        <div class="coffee-name">Brewed Coffee</div>
+      </div>
+      <div class="coffee-item" onclick="showOrderForm('French Coffee')">
+        <img src="images/french coffe.jpg" alt="French Coffee">
+        <div class="coffee-name">French Coffee</div>
+      </div>
+      <div class="coffee-item" onclick="showOrderForm('Irish Coffee')">
+        <img src="images/irish coffee.jpg" alt="Irish Coffee">
+        <div class="coffee-name">Irish Coffee</div>
+      </div>
+      <div class="coffee-item" onclick="showOrderForm('Flat White Coffee')">
+        <img src="images/flat white coffee.jpg" alt="Flat White Coffee">
+        <div class="coffee-name">Flat White Coffee</div>
+      </div>
+      <div class="coffee-item" onclick="showOrderForm('Macchiato Coffee')">
+        <img src="images/Macchiato Coffee.jpg" alt="Macchiato Coffee">
+        <div class="coffee-name">Macchiato Coffee</div>
+      </div>
+      <div class="coffee-item" onclick="showOrderForm('Cortado Coffee')">
+        <img src="images/Cortado Coffee.jpg" alt="Cortado Coffee">
+        <div class="coffee-name">Cortado Coffee</div>
+      </div>
+      <div class="coffee-item" onclick="showOrderForm('Americano Coffee')">
+        <img src="images/Americano Coffee.jpg" alt="Americano Coffee">
+        <div class="coffee-name">Americano Coffee</div>
+      </div>
+      <div class="coffee-item" onclick="showOrderForm('Cold Brew Coffee')">
+        <img src="images/Brewed coffe .jpg" alt="Cold Brew Coffee">
+        <div class="coffee-name">Cold Brew Coffee</div>
+      </div>
+      <div class="coffee-item" onclick="showOrderForm('Red Eye Coffee')">
+        <img src="images/Red Eye Coffee.jpg" alt="Red Eye Coffee">
+        <div class="coffee-name">Red Eye Coffee</div>
+      </div>
+      <div class="coffee-item" onclick="showOrderForm('Black Eye Coffee')">
+        <img src="images/Black Eye Coffee.jpg" alt="Black Eye Coffee">
+        <div class="coffee-name">Black Eye Coffee</div>
+      </div>
+      <div class="coffee-item" onclick="showOrderForm('Drip Coffee')">
+        <img src="images/Drip Coffee.jpg" alt="Drip Coffee">
+        <div class="coffee-name">Drip Coffee</div>
+      </div>
+      <div class="coffee-item" onclick="showOrderForm('Ristretto Coffee')">
+        <img src="images/ristretto coffee.jpg" alt="Ristretto Coffee">
+        <div class="coffee-name">Ristretto Coffee</div>
+      </div>
+      <div class="coffee-item" onclick="showOrderForm('Affogato Coffee')">
+        <img src="images/Affogato Coffee.jpg" alt="Affogato Coffee">
+        <div class="coffee-name">Affogato Coffee</div>
+      </div>
+      <div class="coffee-item" onclick="showOrderForm('Café au Lait')">
+        <img src="images/Café au Lait.jpg" alt="Café au Lait">
+        <div class="coffee-name">Café au Lait</div>
+      </div>
+      <div class="coffee-item" onclick="showOrderForm('Doppio Coffee')">
+        <img src="images/Doppio Coffee.jpg" alt="Doppio Coffee">
+        <div class="coffee-name">Doppio Coffee</div>
+      </div>
+      <div class="coffee-item" onclick="showOrderForm('Robusta Coffee')">
+        <img src="images/Robusta Coffee.jpg" alt="Robusta Coffee">
+        <div class="coffee-name">Robusta Coffee</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Order Form Section -->
+  <section class="order-form-section">
+    <h2>Place Your Order</h2>
+    <form class="order-form" onsubmit="submitOrder(event)">
+      <label for="fullname">Full Name</label>
+      <input type="text" id="fullname" name="fullname" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="product">Product Selected</label>
+      <input type="text" id="product" name="product" readonly>
+
+      <label for="quantity">Quantity</label>
+      <input type="number" id="quantity" name="quantity" min="1" value="1" required>
+
+      <label for="address">Street Address</label>
+      <input type="text" id="address" name="address" required>
+
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" name="phone" required>
+
+      <label for="instructions">Special Instructions (Optional)</label>
+      <textarea id="instructions" name="instructions" placeholder="e.g., Please deliver in the morning"></textarea>
+
+      <button type="submit">Submit Order</button>
+    </form>
+  </section>
+
+  <!-- Contact Us Section -->
+  <section class="contact-us">
+    <div class="contact-us-image">
+      <img src="fine lady drinking coffee.jpg" alt="Contact Us Image">
+    </div>
+    <div class="contact-us-form">
+      <h2>Contact Us</h2>
+      <form id="contactForm" onsubmit="submitContactForm(event)">
+        <label for="contact-fullname">Full Name</label>
+        <input type="text" id="contact-fullname" name="fullname" required>
+
+        <label for="contact-email">Email</label>
+        <input type="email" id="contact-email" name="email" required>
+
+        <label for="contact-phone">Phone Number</label>
+        <input type="tel" id="contact-phone" name="phone" required>
+
+        <label for="service">Service Required</label>
+        <select id="service" name="service" required>
+          <option value="">Select a service</option>
+          <option value="General Inquiry">General Inquiry</option>
+          <option value="Order Support">Order Support</option>
+          <option value="Feedback">Feedback</option>
+          <option value="Partnership">Partnership</option>
+        </select>
+
+        <label for="message">Message (Reason for Contacting Us)</label>
+        <textarea id="message" name="message" placeholder="Please describe your inquiry..." required></textarea>
+
+        <!-- Honeypot for spam protection -->
+        <input type="text" name="honeypot" class="honeypot" value="">
+
+        <button type="submit">Submit</button>
+        <div class="success-message" id="successMessage">Thank you! Your message has been sent.</div>
+        <div class="privacy-notice">
+          We respect your privacy. See our <a href="#">Privacy Policy</a>.
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Features Pop-Up -->
+  <div class="modal" id="featuresModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">×</span>
+      <h2>Our Coffee Features</h2>
+      <ul>
+        <li><a href="#" onclick="showCoffeeDetails('Espresso Coffee')">Espresso Coffee</a></li>
+        <li><a href="#" onclick="showCoffeeDetails('Cappuccino Coffee')">Cappuccino Coffee</a></li>
+        <li><a href="#" onclick="showCoffeeDetails('Turkish Coffee')">Turkish Coffee</a></li>
+        <li><a href="#" onclick="showCoffeeDetails('Moka Coffee')">Moka Coffee</a></li>
+        <li><a href="#" onclick="showCoffeeDetails('Brewed Coffee')">Brewed Coffee</a></li>
+        <li><a href="#" onclick="showCoffeeDetails('French Coffee')">French Coffee</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Reviews Section -->
+  <section class="reviews">
+    <div class="reviews-header">
+      <h2>Reviews</h2>
+      <img src="coffee cup.jpg" alt="Coffee Cup">
+    </div>
+    <p>What other people are saying!</p>
+    <div class="review-cards">
+      <div class="review-card">
+        <p>Indulge in the ultimate pleasure of Coffee Borcelle, where every sip is a journey to flavor paradise. Crafted with precision, our rich blends ignite the senses and elevate your coffee appreciation.</p>
+        <span>@username</span>
+      </div>
+      <div class="review-card">
+        <p>Discover a world of taste with Coffee Borcelle. Sourcing premium beans and crafting unique blends, they deliver an experience that celebrates the art of coffee.</p>
+        <span>@username</span>
+      </div>
+      <div class="review-card">
+        <p>Welcome to the finest taste and soul of coffee perfection. Coffee Borcelle brings rare blends to life, crafted with passion to elevate every sip.</p>
+        <span>@username</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Coffee Types Section -->
+  <section class="coffee-types">
+    <h2>Explore Our Coffee Varieties</h2>
+    <div class="coffee-types-container">
+      <div class="coffee-type">
+        <img src="images/french coffe.jpg" alt="French Coffee">
+        <p>French Coffee</p>
+      </div>
+      <div class="coffee-type">
+        <img src="images/cappuccino coffee.jpg" alt="Cappuccino Coffee">
+        <p>Cappuccino Coffee</p>
+      </div>
+      <div class="coffee-type">
+        <img src="images/turkish coffee.jpg" alt="Turkish Coffee">
+        <p>Turkish Coffee</p>
+      </div>
+      <div class="coffee-type">
+        <img src="images/moka coffee.jpg" alt="Moka Coffee">
+        <p>Moka Coffee</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="footer-column contact-us">
+      <h3>Contact Us</h3>
+      <p>Send us a message</p>
+      <form onsubmit="submitFooterContact(event)">
+        <input type="text" placeholder="Full name" required>
+        <input type="email" placeholder="Your email" required>
+        <textarea placeholder="Your message" rows="4" required></textarea>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <div class="footer-column sitemap">
+      <h3>Sitemap</h3>
+      <p>All our pages</p>
+      <ul>
+        <li><a href="#" onclick="navigate('Home')">Home</a></li>
+        <li><a href="#" onclick="navigate('About Us')">About Us</a></li>
+        <li><a href="#" onclick="navigate('Features')">Features</a></li>
+        <li><a href="#" onclick="navigate('Purchase')">Purchase</a></li>
+        <li><a href="#" onclick="navigate('Contact Us')">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column contact-info">
+      <div class="contact-info-logo">
+        <svg viewBox="0 0 100 100">
+          <path id="footerTopCurve" d="M 10,50 A 40,40 0 0,1 90,50" fill="none" />
+          <path id="footerBottomCurve" d="M 10,50 A 40,40 0 0,0 90,50" fill="none" />
+          <text class="curved-text-top">
+            <textPath href="#footerTopCurve" startOffset="50%" text-anchor="middle">
+              COFFEE
+            </textPath>
+          </text>
+          <text class="curved-text-bottom">
+            <textPath href="#footerBottomCurve" startOffset="50%" text-anchor="middle">
+              BORCELLE
+            </textPath>
+          </text>
+        </svg>
+        <img src="https://via.placeholder.com/60" alt="Coffee Borcelle Logo">
+      </div>
+      <div class="contact-info-details">
+        <p><i class="fas fa-phone"></i>(08) 400 2000</p>
+        <p><i class="fas fa-envelope"></i>coffeeborcelle@gmail.com</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="copyright">
+    <p>Copyright 2020 All Rights Reserved Company Name.</p>
+  </div>
+
+  <script>
+    // Hamburger Menu Toggle
+    document.querySelector('.hamburger').addEventListener('click', function() {
+      const nav = document.querySelector('nav');
+      nav.classList.toggle('active');
+      this.querySelector('i').classList.toggle('fa-bars');
+      this.querySelector('i').classList.toggle('fa-times');
+      
+      // Toggle overlay visibility
+      let overlay = document.querySelector('.overlay');
+      if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.className = 'overlay';
+        document.body.appendChild(overlay);
+      }
+      overlay.style.display = nav.classList.contains('active') ? 'block' : 'none';
+    });
+
+    // Close menu when clicking outside (on overlay)
+    document.addEventListener('click', function(event) {
+      const nav = document.querySelector('nav');
+      const hamburger = document.querySelector('.hamburger');
+      const overlay = document.querySelector('.overlay');
+      if (overlay && event.target === overlay) {
+        nav.classList.remove('active');
+        hamburger.querySelector('i').classList.remove('fa-times');
+        hamburger.querySelector('i').classList.add('fa-bars');
+        overlay.style.display = 'none';
+      }
+    });
+
+    // Close menu when a link is clicked
+    document.querySelectorAll('nav ul li a').forEach(link => {
+      link.addEventListener('click', function() {
+        const nav = document.querySelector('nav');
+        const hamburger = document.querySelector('.hamburger i');
+        const overlay = document.querySelector('.overlay');
+        nav.classList.remove('active');
+        hamburger.classList.remove('fa-times');
+        hamburger.classList.add('fa-bars');
+        if (overlay) overlay.style.display = 'none';
+      });
+    });
+
+    function navigate(page) {
+      // Remove active class from all navigation links
+      document.querySelectorAll('nav ul li a').forEach(link => link.classList.remove('active'));
+      // Add active class to the clicked link
+      event.target.classList.add('active');
+
+      // Hide all sections
+      document.querySelectorAll('section').forEach(section => section.classList.remove('active'));
+      const featuresModal = document.getElementById('featuresModal');
+      if (featuresModal) featuresModal.style.display = 'none';
+
+      // Show the corresponding section based on the page
+      try {
+        if (page === 'Home') {
+          document.querySelector('.home').classList.add('active');
+          document.querySelector('.header-content h1').textContent = 'Coffee Makes Mood';
+          document.querySelector('.header-content p').textContent = '"Indulge in Every Sip: Experience the Richness of Coffee"';
+        } else if (page === 'About Us') {
+          document.querySelector('.about-us').classList.add('active');
+          document.querySelector('.header-content h1').textContent = 'About Coffee Borcelle';
+          document.querySelector('.header-content p').textContent = '"Discover the Story Behind Every Cup"';
+        } else if (page === 'Features') {
+          document.getElementById('featuresModal').style.display = 'flex';
+          return; // Prevent showing reviews, coffee-types, etc., until a coffee is selected
+        } else if (page === 'Purchase') {
+          document.querySelector('.purchase').classList.add('active');
+          document.querySelector('.header-content h1').textContent = 'Purchase Your Coffee';
+          document.querySelector('.header-content p').textContent = '"Select Your Favorite Blend and Order Now"';
+        } else if (page === 'Contact Us') {
+          document.querySelector('.contact-us').classList.add('active');
+          document.querySelector('.header-content h1').textContent = 'Contact Us';
+          document.querySelector('.header-content p').textContent = '"Reach Out for Support or Inquiry"';
+        }
+
+        // Show Reviews and Coffee Types for non-Features pages
+        document.querySelector('.reviews').classList.add('active');
+        document.querySelector('.coffee-types').classList.add('active');
+      } catch (error) {
+        console.error('Navigation error:', error);
+        alert('An error occurred while navigating. Please try again.');
+      }
+    }
+
+    function closeModal() {
+      const featuresModal = document.getElementById('featuresModal');
+      if (featuresModal) featuresModal.style.display = 'none';
+    }
+
+    function showCoffeeDetails(coffeeType) {
+      // Close the modal
+      closeModal();
+
+      // Hide all sections except coffee-details
+      document.querySelectorAll('section').forEach(section => section.classList.remove('active'));
+
+      // Show the coffee-details section
+      const coffeeDetails = document.querySelector('.coffee-details');
+      coffeeDetails.classList.add('active');
+
+      // Update the coffee-details content
+      const coffeeName = document.getElementById('coffee-name');
+      const coffeeImage = document.getElementById('coffee-image');
+      const coffeeDescription = document.getElementById('coffee-description');
+      const coffeePrepImage = document.getElementById('coffee-prep-image');
+      const prepTitle = document.getElementById('prep-title');
+      const prepSteps = document.getElementById('prep-steps');
+
+      if (!coffeePrepImage) {
+        console.error('coffee-prep-image element not found in the DOM');
+        return;
+      }
+
+      if (coffeeType === 'Espresso Coffee') {
+        coffeeName.textContent = 'Espresso Coffee';
+        coffeeImage.src = 'images/espresso coffee.jpg';
+        coffeeImage.alt = 'Espresso Coffee';
+        coffeeDescription.textContent = 'Espresso Coffee is a concentrated form of coffee served in small, strong shots and is the base for many coffee drinks. It\'s made by forcing hot water under high pressure through finely-ground coffee beans, resulting in a rich, bold flavor with a signature crema on top.';
+        coffeePrepImage.src = 'images/espresso coffee.jpg';
+        coffeePrepImage.alt = 'Espresso Coffee Preparation';
+        prepTitle.textContent = 'How to Prepare Espresso Coffee';
+        prepSteps.innerHTML = `
+          <li>Grind 18-20 grams of fresh coffee beans to a fine consistency.</li>
+          <li>Tamp the ground coffee evenly into the portafilter with about 30 pounds of pressure.</li>
+          <li>Attach the portafilter to the espresso machine and start the extraction.</li>
+          <li>Run hot water (about 195-205°F) through the coffee for 25-30 seconds to yield a 2-ounce shot.</li>
+          <li>Serve immediately, topped with the natural crema, and enjoy!</li>
+        `;
+      } else if (coffeeType === 'Cappuccino Coffee') {
+        coffeeName.textContent = 'Cappuccino Coffee';
+        coffeeImage.src = 'images/cappuccino coffee.jpg';
+        coffeeImage.alt = 'Cappuccino Coffee';
+        coffeeDescription.textContent = 'Cappuccino Coffee is a classic Italian coffee drink that combines equal parts of espresso, steamed milk, and milk foam. It\'s known for its creamy texture, rich espresso flavor, and a frothy top, often dusted with cocoa powder or cinnamon.';
+        coffeePrepImage.src = 'images/cappuccino coffee.jpg';
+        coffeePrepImage.alt = 'Cappuccino Coffee Preparation';
+        prepTitle.textContent = 'How to Prepare Cappuccino Coffee';
+        prepSteps.innerHTML = `
+          <li>Prepare a single shot (1 ounce) of espresso using 7-9 grams of finely ground coffee beans.</li>
+          <li>Steam 4 ounces of milk to 150-155°F, creating a microfoam with a velvety texture.</li>
+          <li>Pour the espresso into a 6-ounce cup.</li>
+          <li>Gently pour the steamed milk over the espresso, holding back the foam with a spoon.</li>
+          <li>Spoon the milk foam on top to finish, and optionally dust with cocoa powder or cinnamon.</li>
+        `;
+      } else if (coffeeType === 'Turkish Coffee') {
+        coffeeName.textContent = 'Turkish Coffee';
+        coffeeImage.src = 'images/turkish coffee.jpg';
+        coffeeImage.alt = 'Turkish Coffee';
+        coffeeDescription.textContent = 'Turkish Coffee is a traditional method of coffee preparation where finely ground coffee beans are boiled with water and often sugar in a special pot called a cezve. It\'s known for its strong flavor, thick texture, and the ritual of serving it with grounds settled at the bottom.';
+        coffeePrepImage.src = 'images/turkish coffee.jpg';
+        coffeePrepImage.alt = 'Turkish Coffee Preparation';
+        prepTitle.textContent = 'How to Prepare Turkish Coffee';
+        prepSteps.innerHTML = `
+          <li>Measure 1-2 teaspoons of finely ground Turkish coffee per cup and add to a cezve.</li>
+          <li>Add 1-2 teaspoons of sugar (optional) and 2-3 ounces of cold water per cup.</li>
+          <li>Stir the mixture over low heat until the coffee begins to foam.</li>
+          <li>Remove from heat just as the foam rises, avoiding a boil-over.</li>
+          <li>Pour into small cups, letting the grounds settle, and serve with a glass of water.</li>
+        `;
+      } else if (coffeeType === 'Moka Coffee') {
+        coffeeName.textContent = 'Moka Coffee';
+        coffeeImage.src = 'images/moka coffee.jpg';
+        coffeeImage.alt = 'Moka Coffee';
+        coffeeDescription.textContent = 'Moka Coffee is brewed using a stovetop Moka pot, a device that creates pressure to pass hot water through ground coffee. It produces a strong, espresso-like coffee with a robust flavor, often enjoyed as a morning pick-me-up in Italian households.';
+        coffeePrepImage.src = 'images/moka coffee.jpg';
+        coffeePrepImage.alt = 'Moka Coffee Preparation';
+        prepTitle.textContent = 'How to Prepare Moka Coffee';
+        prepSteps.innerHTML = `
+          <li>Fill the bottom chamber of the Moka pot with cold water up to the safety valve.</li>
+          <li>Insert the filter basket and fill it with medium-ground coffee (about 15-20 grams), without tamping.</li>
+          <li>Screw the top chamber onto the base tightly.</li>
+          <li>Place the pot on low-medium heat; coffee will start to percolate into the top chamber.</li>
+          <li>Remove from heat once you hear a gurgling sound, then serve in small cups.</li>
+        `;
+      } else if (coffeeType === 'Brewed Coffee') {
+        coffeeName.textContent = 'Brewed Coffee';
+        coffeeImage.src = 'images/Brewed coffe .jpg';
+        coffeeImage.alt = 'Brewed Coffee';
+        coffeeDescription.textContent = 'Brewed Coffee is a classic preparation method where hot water is passed through ground coffee to extract its flavors, typically using a drip machine or pour-over technique. It offers a smooth, balanced taste, perfect for everyday enjoyment.';
+        coffeePrepImage.src = 'images/Brewed coffe .jpg';
+        coffeePrepImage.alt = 'Brewed Coffee Preparation';
+        prepTitle.textContent = 'How to Prepare Brewed Coffee';
+        prepSteps.innerHTML = `
+          <li>Measure 1-2 tablespoons of medium-ground coffee per 6 ounces of water.</li>
+          <li>Place the coffee grounds into a filter in a drip machine or pour-over cone.</li>
+          <li>Heat water to 195-205°F and pour it evenly over the grounds.</li>
+          <li>Allow the coffee to drip or steep for 2-4 minutes, depending on the method.</li>
+          <li>Remove the filter, pour into a cup, and serve immediately.</li>
+        `;
+      } else if (coffeeType === 'French Coffee') {
+        coffeeName.textContent = 'French Coffee';
+        coffeeImage.src = 'images/french coffe.jpg';
+        coffeeImage.alt = 'French Coffee';
+        coffeeDescription.textContent = 'French Coffee, often prepared using a French press, is a full-bodied coffee made by steeping coarse coffee grounds in hot water. The method brings out the coffee\'s natural oils, resulting in a rich and robust flavor.';
+        coffeePrepImage.src = 'images/french coffe.jpg';
+        coffeePrepImage.alt = 'French Coffee Preparation';
+        prepTitle.textContent = 'How to Prepare French Coffee';
+        prepSteps.innerHTML = `
+          <li>Measure 2 tablespoons of coarsely ground coffee per 6 ounces of water.</li>
+          <li>Add the grounds to the French press.</li>
+          <li>Pour hot water (195-205°F) over the grounds and stir gently.</li>
+          <li>Place the lid on the press and let it steep for 4 minutes.</li>
+          <li>Press down the plunger slowly, then pour into a cup and enjoy.</li>
+        `;
+      } else {
+        coffeeName.textContent = coffeeType;
+        coffeeImage.src = `images/${coffeeType.replace(/\s+/g, '_')}.jpg`;
+        coffeeImage.alt = coffeeType;
+        coffeeDescription.textContent = `Description for ${coffeeType} coming soon.`;
+        coffeePrepImage.src = `images/${coffeeType.replace(/\s+/g, '_')}.jpg`;
+        coffeePrepImage.alt = `${coffeeType} Preparation`;
+        prepTitle.textContent = `How to Prepare ${coffeeType}`;
+        prepSteps.innerHTML = `<li>Steps for preparing ${coffeeType} coming soon.</li>`;
+      }
+
+      // Add error handling for image loading
+      coffeePrepImage.onerror = () => {
+        console.error(`Failed to load image: ${coffeePrepImage.src}`);
+        coffeePrepImage.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found';
+      };
+      coffeeImage.onerror = () => {
+        console.error(`Failed to load image: ${coffeeImage.src}`);
+        coffeeImage.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found';
+      };
+
+      // Show Reviews and Coffee Types
+      document.querySelector('.reviews').classList.add('active');
+      document.querySelector('.coffee-types').classList.add('active');
+    }
+
+    function showOrderForm(coffeeType) {
+      // If the coffee type is not available yet (e.g., missing images or TBD), alert and return
+      if (!coffeeType || coffeeType.includes('Coming Soon')) {
+        alert('This coffee type is not available for purchase yet.');
+        return;
+      }
+
+      // Hide all sections except order-form-section
+      document.querySelectorAll('section').forEach(section => section.classList.remove('active'));
+      const orderFormSection = document.querySelector('.order-form-section');
+      orderFormSection.classList.add('active');
+
+      // Pre-fill the product field
+      document.getElementById('product').value = coffeeType;
+
+      // Show Reviews and Coffee Types
+      document.querySelector('.reviews').classList.add('active');
+      document.querySelector('.coffee-types').classList.add('active');
+    }
+
+    function submitOrder(event) {
+      event.preventDefault();
+      const form = event.target;
+      const formData = new FormData(form);
+      const orderDetails = {
+        fullname: formData.get('fullname'),
+        email: formData.get('email'),
+        product: formData.get('product'),
+        quantity: formData.get('quantity'),
+        address: formData.get('address'),
+        phone: formData.get('phone'),
+        instructions: formData.get('instructions') || 'None'
+      };
+
+      // Basic validation (already handled by HTML5 'required', but added for clarity)
+      if (!orderDetails.fullname || !orderDetails.email || !orderDetails.product || !orderDetails.quantity || !orderDetails.address || !orderDetails.phone) {
+        alert('Please fill out all required fields.');
+        return;
+      }
+
+      // Simulate order submission (in a real app, this would be an API call)
+      alert(`Order Submitted!\n\nDetails:\nFull Name: ${orderDetails.fullname}\nEmail: ${orderDetails.email}\nProduct: ${orderDetails.product}\nQuantity: ${orderDetails.quantity}\nAddress: ${orderDetails.address}\nPhone: ${orderDetails.phone}\nSpecial Instructions: ${orderDetails.instructions}`);
+
+      // Reset the form and return to the purchase section
+      form.reset();
+      navigate('Purchase');
+    }
+
+    function submitContactForm(event) {
+      event.preventDefault();
+      const form = event.target;
+      const honeypot = form.querySelector('.honeypot').value;
+
+      // Check honeypot to prevent spam
+      if (honeypot) {
+        return; // Ignore submission if honeypot is filled
+      }
+
+      const formData = new FormData(form);
+      const contactDetails = {
+        fullname: formData.get('fullname'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        service: formData.get('service'),
+        message: formData.get('message')
+      };
+
+      // Basic validation
+      if (!contactDetails.fullname || !contactDetails.email || !contactDetails.phone || !contactDetails.service || !contactDetails.message) {
+        alert('Please fill out all required fields.');
+        return;
+      }
+
+      // Simulate form submission
+      const successMessage = document.getElementById('successMessage');
+      successMessage.style.display = 'block';
+      form.reset();
+
+      // Hide success message after 3 seconds
+      setTimeout(() => {
+        successMessage.style.display = 'none';
+      }, 3000);
+    }
+
+    function submitFooterContact(event) {
+      event.preventDefault();
+      const form = event.target;
+      const formData = new FormData(form);
+      const contactDetails = {
+        fullname: formData.get('fullname'),
+        email: formData.get('email'),
+        message: formData.get('message')
+      };
+
+      // Basic validation
+      if (!contactDetails.fullname || !contactDetails.email || !contactDetails.message) {
+        alert('Please fill out all required fields.');
+        return;
+      }
+
+      // Simulate form submission
+      alert(`Footer Contact Submitted!\n\nDetails:\nFull Name: ${contactDetails.fullname}\nEmail: ${contactDetails.email}\nMessage: ${contactDetails.message}`);
+      form.reset();
+    }
+
+    // Set initial state to Home
+    document.querySelector('.home').classList.add('active');
+    document.querySelector('nav ul li:nth-child(1) a').classList.add('active');
+    document.querySelector('.reviews').classList.add('active');
+    document.querySelector('.coffee-types').classList.add('active');
+  </script>
+</body>
+</html>
